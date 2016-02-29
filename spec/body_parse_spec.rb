@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative "../parse_mail.rb"
+require_relative "../support/parse_mail.rb"
 
 describe ParseBody do
   let(:body) { File.open("#{Dir.pwd}/spec/fixtures/test.txt").read }  

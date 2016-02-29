@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    daemons (1.2.3)
     diff-lcs (1.2.5)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
@@ -23,6 +24,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  daemons
   mail
   rspec
 
