@@ -1,5 +1,0 @@
-smtp: imap.timeweb.ru
-login: eb@svcnet.ru
-password: GaGBgSZB
-port: '993'
-enable_ssl: true
