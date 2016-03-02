@@ -6,7 +6,7 @@ require 'yaml'
 require_relative 'support/parse_mail'
 require_relative 'support/report'
 
-config = YAML.load_file('config.yml')
+config = YAML.load_file('/home/deploy/CheckMailBackups/config.yml')
 
 Mail.defaults do
   retriever_method :imap, :address    => config["smtp"],
