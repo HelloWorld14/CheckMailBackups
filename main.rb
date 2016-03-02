@@ -35,6 +35,8 @@ loop do
         email: body.decoded.to_s,
         server_name: email.subject
     )
+
+    sleep 5
   end
 
   sleep 60
