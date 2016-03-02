@@ -8,11 +8,11 @@ class ParseBody
   end
 
   def success_tasks
-    "Заданий выполнено: #{ @success_tasks }"
+    @success_tasks
   end
 
   def fail_tasks
-    "Заданий провалено: #{ @fail_tasks }"
+    @fail_tasks
   end
 
   private

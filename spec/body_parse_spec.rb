@@ -7,7 +7,7 @@ describe ParseBody do
   before { @report = ParseBody.new(body) }
 
   it 'Should correct calculate success and fail tasks count' do
-    expect(@report.success_tasks).to eq("Заданий выполнено: 2")
-    expect(@report.fail_tasks).to eq("Заданий провалено: 1")
+    expect(@report.success_tasks).to eq('2')
+    expect(@report.fail_tasks).to eq('1')
   end
 end

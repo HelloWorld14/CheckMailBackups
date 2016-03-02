@@ -1,0 +1,5 @@
+smtp: imap.timeweb.ru
+login: your_login
+password: your_password
+port: '993'
+enable_ssl: true
