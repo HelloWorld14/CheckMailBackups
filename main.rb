@@ -6,7 +6,8 @@ require 'yaml'
 require_relative 'support/parse_mail'
 require_relative 'support/report'
 
-config = YAML.load_file('/home/deploy/CheckMailBackups/config.yml')
+
+config = YAML.load_file("#{Dir.pwd}/config.yml")
 
 Mail.defaults do
   retriever_method :imap, :address    => config["smtp"],
@@ -16,25 +17,27 @@ Mail.defaults do
                           :enable_ssl => config["enable_ssl"]
 end
 
+#email = Mail.first
+#puts email.subject
+
+
 loop do
   p 'ПАРСИМ'
   emails = Mail.find(keys: ['NOT', 'SEEN'])
 
   emails.each do |email|
-    report = ParseBody.new(email.body.decoded.to_s.force_encoding('UTF-8'))
+    body = ParseBody.new(email.body.decoded.to_s.force_encoding('UTF-8'))
+    report = ParseBody.new(body)
 
-    if email.parts && email.parts[0] != nil
-      body = email.parts[0]
-    else
-      body = email.body
+    report.tasks.each do |task|
+      SendReport.new(
+          server_name: subject,
+          task_name: task[:name],
+          errors_count: task[:errors_count],
+          status: task[:status],
+          client_id: email.subject.scan(/.*?\s/)[0]
+      )
     end
-
-    SendReport.new(
-        success_tasks: report.success_tasks,
-        fail_tasks: report.fail_tasks,
-        email: body.decoded.to_s,
-        server_name: email.subject
-    )
   end
 
   sleep 60

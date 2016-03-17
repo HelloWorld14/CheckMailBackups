@@ -2,7 +2,7 @@ require 'net/http'
 
 class SendReport
   # 'http://192.168.4.81/backups'
-  HOST = 'http://192.168.4.81'
+  HOST = 'http://localhost:3000'
 
   def initialize(options={})
     @uri = URI(HOST + '/backups/cobian_backups')
