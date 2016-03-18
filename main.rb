@@ -23,7 +23,8 @@ end
 
 loop do
   p 'ПАРСИМ'
-  emails = Mail.find(keys: ['NOT', 'SEEN'])
+  #emails = Mail.find(keys: ['NOT', 'SEEN'])
+  emails = [Mail.first]
 
   emails.each do |email|
     body = ParseBody.new(email.body.decoded.to_s.force_encoding('UTF-8'))
