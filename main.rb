@@ -31,7 +31,7 @@ loop do
 
     report.tasks.each do |task|
       SendReport.new(
-          server_name: subject,
+          server_name: email.subject.scan(/\(.*?\)/),
           task_name: task[:name],
           errors_count: task[:errors_count],
           status: task[:status],
