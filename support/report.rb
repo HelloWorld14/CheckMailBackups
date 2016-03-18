@@ -14,6 +14,7 @@ class SendReport
   def send_report
     request_body = {auth_token: @auth_token}.merge(@params)
     Net::HTTP.post_form(@uri, request_body)
+    puts 'success'
   end
 end
 
