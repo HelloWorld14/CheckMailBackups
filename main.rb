@@ -36,7 +36,7 @@ loop do
       end
 
       HOST = 'http://192.168.4.81'
-      @uri = URI(HOST + '/backups/cobian_backups')
+      @uri = URI(HOST + '/backups/sql_backups')
       request_body = {body: body, client: @client, auth_token: @auth_token}
 
       Net::HTTP.post_form(@uri, request_body)
