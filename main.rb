@@ -7,7 +7,7 @@ require_relative 'support/parse_mail'
 require_relative 'support/report'
 
 
-config = YAML.load_file('/home/deploy/CheckMailBackups/config.yml')
+config = YAML.load_file(Dir.pwd + '/config.yml')
 
 Mail.defaults do
   retriever_method :imap, :address    => config["smtp"],
@@ -20,14 +20,14 @@ end
 #email = Mail.first
 #puts email.subject
 
-
+HOST = 'http://192.168.4.81'
 loop do
   p 'ПАРСИМ'
-  emails = Mail.find(keys: ['NOT', 'SEEN'])
+  emails = Mail.all
 
   emails.each do |email|
-    if emails.subject =~ /\d*^/
-      @client = emails.subject
+    if email.subject =~ /^(\d*)$/
+      @client = email.subject
       @auth_token = '78b7794e6d8c639b44da07491591a24d78f097a8468a5eef36aa3f3af4d5a71f21f29419a18fa8eb5e42bc95042c04f5137959cf0bee22bf7eecdf94dcce7176'
       body = email.body.decoded.to_s.force_encoding('UTF-8')
 
@@ -35,12 +35,11 @@ loop do
         @status = s.gsub(/СОСТОЯНИЕ:/, "").strip if s=~/СОСТОЯНИЕ:/
       end
 
-      HOST = 'http://192.168.4.81'
       @uri = URI(HOST + '/backups/sql_backups')
       request_body = {body: body, client: @client, auth_token: @auth_token}
 
       Net::HTTP.post_form(@uri, request_body)
-
+      puts 'УСПЕШНО УШЛО'
     else
       report = ParseBody.new(email.body.decoded.to_s.force_encoding('UTF-8'))
 
@@ -55,7 +54,6 @@ loop do
         )
       end
     end
-
   end
 
   sleep 60
