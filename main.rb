@@ -36,7 +36,7 @@ loop do
       end
 
       @uri = URI(HOST + '/backups/sql_backups')
-      request_body = {body: body, client: @client, auth_token: @auth_token}
+      request_body = {body: body, client: @client, auth_token: @auth_token, status: @status, task_name: 'TEST'}
 
       Net::HTTP.post_form(@uri, request_body)
       puts 'УСПЕШНО УШЛО'
