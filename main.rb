@@ -26,7 +26,7 @@ loop do
   emails = Mail.all
 
   emails.each do |email|
-    if email.subject =~ /^(\d*)$/
+    if email.from =~ /^(\d*)$/
       @client = email.subject
       @auth_token = '78b7794e6d8c639b44da07491591a24d78f097a8468a5eef36aa3f3af4d5a71f21f29419a18fa8eb5e42bc95042c04f5137959cf0bee22bf7eecdf94dcce7176'
       body = email.body.decoded.to_s.force_encoding('UTF-8')
@@ -39,7 +39,7 @@ loop do
       request_body = {body: body, client: @client, auth_token: @auth_token, status: @status, task_name: 'TEST'}
 
       Net::HTTP.post_form(@uri, request_body)
-      puts 'УСПЕШНО УШЛО'
+      puts 'SQL успешно ушло'
     else
       report = ParseBody.new(email.body.decoded.to_s.force_encoding('UTF-8'))
 
